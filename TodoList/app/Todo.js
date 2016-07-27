@@ -1,29 +1,17 @@
 import React, { PropTypes } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-} from 'react-native'
+import { Text } from 'react-native'
 
 const Todo = ({
   text,
   completed,
   onClick,
 }) => {
-
-  let styles = StyleSheet.create({
-    text: {
-      textDecorationLine: completed ? 'line-through' : 'none',
-    }
-  });
-
   return (
-    <TouchableWithoutFeedback onPress={() => onClick()}>
-      <View>
-        <Text style={styles.text}>{text}</Text>
-      </View>
-    </TouchableWithoutFeedback>
+    <Text 
+      onPress={() => onClick()} 
+      style={{textDecorationLine: completed ? 'line-through' : 'none'}}>
+      {text}
+    </Text>
   )
 }
 

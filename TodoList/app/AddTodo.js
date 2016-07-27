@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import {
-  StyleSheet,
   View,
   Text,
   TouchableHighlight,
@@ -10,13 +9,6 @@ import {
 const AddTodo = ({
   onAddTodo
 }) => {
-
-  const styles = StyleSheet.create({
-    container: {
-      flex:1,
-    }
-  })
-
   var todo_text = '';
   var _textInput = null;
 
@@ -37,7 +29,7 @@ const AddTodo = ({
         onChangeText={(text) => todo_text = text}
         placeholder='Add a todo'
       />
-      <TouchableHighlight onPress={() => _onAddTodo()}>
+      <TouchableHighlight underlayColor='transparent' onPress={() => _onAddTodo()}>
         <View style={{borderWidth:1, borderRadius:3, borderColor:'black'}}>
           <Text style={{marginHorizontal:5}}>Add</Text>
         </View>
@@ -51,7 +43,7 @@ AddTodo.propTypes = {
 };
 
 AddTodo.defaultProps = {
-
+  onAddTodo: () => {}
 }
 
 export default AddTodo
