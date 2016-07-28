@@ -19,12 +19,12 @@ const TodoList = ({
 
   return (
     <View>
-    {todos.map((todo, index) => {
+    {todos.map((todo) => {
       return (
         <Todo
           {...todo}
-          key={index}
-          onClick={() => onTodoClick(todo)}
+          key={todo.index}
+          onClick={() => onTodoClick(todo.index)}
         />
       )
     })}

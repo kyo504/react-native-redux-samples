@@ -1,114 +1,30 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+import { StyleSheet, View} from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import AddTodo from './AddTodo'
-import TodoList from './TodoList'
-import Footer from './Footer'
+import AddTodo from './components/AddTodo'
+import TodoList from './components/TodoList'
+import Footer from './components/Footer'
+import * as todoActions from './actions'
 
-var count = 0;
-function getNextID() {
-  count = count + 1;
-  return count;
-}
-
-export default class App extends Component {
-
-  constructor(props) {
-    super(props);
-
-    let nextID = getNextID();
-
-    this.state = {
-      completed: false,
-      filter: 'SHOW_ALL',
-      todos: [{
-        id: 0,
-        text: 'Use redux',
-        completed: true,
-      },{
-        id: nextID,
-        text: 'Learn to connect it to React',
-        completed: false,
-      }],
-      visibletodos: [{
-        text: 'Use redux',
-        completed: true,
-      },{
-        id: nextID,
-        text: 'Learn to connect it to React',
-        completed: false,
-      }],
-    }
-  }
-
-  _onAddTodo(text) {
-    if(text === '') return;
-
-    let nextID = getNextID();
-
-    this.setState({
-      'todos': [
-        ...this.state.todos,
-        {
-          id: nextID,
-          text: text, 
-          completed: false,
-        }
-      ],
-      'visibletodos': [
-        ...this.state.todos,
-        {
-          id: nextID,
-          text: text, 
-          completed: false,
-        }
-      ]
-    })
-  }
-
-  _onTodoClick(todo, index) {
-    let todos = this.state.visibletodos;
-    todos[todo.id].completed = !todos[todo.id].completed;
-    this.setState({todos: todos});
-  }
-
-  _onFilterChange(filter) {
-    switch(filter) {
-      case 'SHOW_ALL':
-        this.setState({visibletodos: [...this.state.todos]});
-        break;
-      case 'SHOW_COMPLETED':
-        this.setState({visibletodos: this.state.todos.filter((todo) => {
-          return todo.completed === true;
-        })})
-        break;
-      case 'SHOW_ACTIVE':
-        this.setState({visibletodos: this.state.todos.filter((todo) => {
-          return todo.completed === false;
-        })})
-        break;
-      default:
-        this.setState({visibletodos: Object.assign({}, this.state.todos)})      
-    }
-
-    this.setState({filter});
-  }
+class App extends Component {
 
   render() {
+
+    const { visibleTodos, visibilityFilter } = this.props;
+    const { addTodo, completeTodo, setVisibilityFilter } = this.props.actions;
+
     return (
       <View style={styles.container}>
-        <AddTodo onAddTodo={(text) => this._onAddTodo(text)}/>
+        <AddTodo onAddTodo={(text) => addTodo(text)}/>
         <TodoList
-          todos={this.state.visibletodos}
-          onTodoClick={(todo) => this._onTodoClick(todo)}
+          todos={visibleTodos}
+          onTodoClick={(index) => completeTodo(index)}
         />
         <Footer
-          filter={this.state.filter}
-          onFilterChange={(filter) => this._onFilterChange(filter)}
+          filter={visibilityFilter}
+          onFilterChange={(filter) => setVisibilityFilter(filter)}
         />
       </View>
     );
@@ -122,4 +38,30 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
+
+const getVisibleTodos = function(todos, filter) {
+  switch(filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_COMPLETED':
+      return todos.filter( t => t.completed === true);
+    case 'SHOW_ACTIVE':
+      return todos.filter( t => t.completed === false);
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    visibleTodos: getVisibleTodos(state.todos, state.visibilityFilter),
+    visibilityFilter: state.visibilityFilter,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(todoActions, dispatch),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 

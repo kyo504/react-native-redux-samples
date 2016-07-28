@@ -17,8 +17,10 @@ const AddTodo = ({
   }
 
   _onAddTodo = function() {
-    clearText();
-    onAddTodo(todo_text);
+    if (todo_text !== '') {
+      clearText();
+      onAddTodo(todo_text);
+    }
   }
 
   return (
