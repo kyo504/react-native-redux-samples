@@ -9,10 +9,10 @@ import { applyMiddleware, createStore } from 'redux';
 import createLogger from 'redux-logger';
 
 import App from './app/App';
-import reducers from './app/reducers';
+import reducer from './app/reducers/counter';
 
 let logger = createLogger();
-let store = createStore(reducers, applyMiddleware(logger));
+let store = createStore(reducer, applyMiddleware(logger));
 
 class CounterApp extends Component {
   render() {

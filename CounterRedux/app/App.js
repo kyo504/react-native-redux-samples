@@ -21,7 +21,7 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    count: state.counter.count,
+    count: state.count,
   }
 }
 
