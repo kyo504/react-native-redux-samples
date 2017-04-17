@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -8,28 +8,27 @@ import TodoList from './components/TodoList'
 import Footer from './components/Footer'
 import * as todoActions from './actions'
 
-class App extends Component {
+const App = ({
+  visibleTodos,
+  visibilityFilter,
+  actions
+}) => {
+  const { addTodo, completeTodo, setVisibilityFilter } = actions;
 
-  render() {
-
-    const { visibleTodos, visibilityFilter } = this.props;
-    const { addTodo, completeTodo, setVisibilityFilter } = this.props.actions;
-
-    return (
-      <View style={styles.container}>
-        <AddTodo onAddTodo={(text) => addTodo(text)}/>
-        <TodoList
-          todos={visibleTodos}
-          onTodoClick={(index) => completeTodo(index)}
-        />
-        <Footer
-          filter={visibilityFilter}
-          onFilterChange={(filter) => setVisibilityFilter(filter)}
-        />
-      </View>
-    );
-  }
-}
+  return (
+    <View style={styles.container}>
+      <AddTodo onAddTodo={(text) => addTodo(text)} />
+      <TodoList
+        todos={visibleTodos}
+        onTodoClick={(index) => completeTodo(index)}
+      />
+      <Footer
+        filter={visibilityFilter}
+        onFilterChange={(filter) => setVisibilityFilter(filter)}
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -39,14 +38,14 @@ const styles = StyleSheet.create({
   },
 });
 
-const getVisibleTodos = function(todos, filter) {
-  switch(filter) {
+const getVisibleTodos = function (todos, filter) {
+  switch (filter) {
     case 'SHOW_ALL':
       return todos;
     case 'SHOW_COMPLETED':
-      return todos.filter( t => t.completed === true);
+      return todos.filter(t => t.completed === true);
     case 'SHOW_ACTIVE':
-      return todos.filter( t => t.completed === false);
+      return todos.filter(t => t.completed === false);
   }
 }
 

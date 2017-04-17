@@ -9,14 +9,14 @@ import {
 const AddTodo = ({
   onAddTodo
 }) => {
-  var todo_text = '';
-  var _textInput = null;
+  let todo_text = '';
+  let textInputRef = null;
 
-  clearText = function() {
-    _textInput.setNativeProps({text: ''});
+  const clearText = () => {
+    textInputRef.setNativeProps({text: ''});
   }
 
-  _onAddTodo = function() {
+  const _onAddTodo = () => {
     if (todo_text !== '') {
       clearText();
       onAddTodo(todo_text);
@@ -26,7 +26,7 @@ const AddTodo = ({
   return (
     <View style={{flexDirection:'row'}}>
       <TextInput
-        ref={(component) => _textInput = component}
+        ref={(c) => { textInputRef = c; }}
         style={{width: 100, borderColor: 'gray', borderWidth: 1}}
         onChangeText={(text) => todo_text = text}
         placeholder='Add a todo'
