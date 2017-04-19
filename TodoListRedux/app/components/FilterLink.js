@@ -5,6 +5,7 @@ import {
   Text,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { setVisibilityFilter } from '../actions';
 
 const FilterLink = ({
   active,
@@ -47,10 +48,7 @@ const mapDispatchProps = (
   ownProps,
 ) => {
   return {
-    onClick: () => dispatch({
-      type: 'SET_VISIBILITY_FILTER',
-      filter: ownProps.filter,
-    })
+    onClick: () => dispatch(setVisibilityFilter(ownProps.filter)),
   }
 }
 

@@ -6,6 +6,7 @@ import {
 } from 'react-native'
 import { connect } from 'react-redux';
 import Todo from './Todo'
+import { toggleTodo } from '../actions';
 
 const VisibleTodoList = ({
   todos,
@@ -57,12 +58,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onTodoClick: (id) => (
-      dispatch({
-        type: 'TOGGLE_TODO',
-        id,
-      })
-    ),
+    onTodoClick: (id) => dispatch(toggleTodo(id)),
   };
 };
 

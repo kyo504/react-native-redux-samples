@@ -7,9 +7,9 @@ export const addTodo = (text) => {
   }
 }
 
-export const completeTodo = (id) => {
+export const toggleTodo = (id) => {
   return {
-    type: types.COMPLETE_TODO,
+    type: types.TOGGLE_TODO,
     id,
   }  
 }

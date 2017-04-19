@@ -6,6 +6,7 @@ import {
   TextInput,
 } from 'react-native';
 import { connect } from 'react-redux';
+import { addTodo } from '../actions';
 
 const AddTodo = ({ dispatch }) => {
   let todo_text = '';
@@ -18,10 +19,7 @@ const AddTodo = ({ dispatch }) => {
   const _onAddTodo = () => {
     if (todo_text !== '') {
       clearText();
-      dispatch({
-        type: 'ADD_TODO',
-        text: todo_text,
-      })
+      dispatch(addTodo(todo_text));
     }
   }
 
