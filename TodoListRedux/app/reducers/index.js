@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 import { combineReducers } from 'redux';
 
-let count = 0; 
+let count = 1;
+
 const todos = (state = [], action) => {
 
   switch(action.type) {
@@ -9,15 +10,15 @@ const todos = (state = [], action) => {
       return [
         ...state,
         {
-          index: count++,
+          id: count++,
           text: action.text,
           completed: false,
         }
       ]
 
-    case types.COMPLETE_TODO:
+    case types.TOGGLE_TODO:
       return state.map(todo => {
-        if (todo.index !== action.index) {
+        if (todo.id !== action.id) {
           return todo;
         }
 

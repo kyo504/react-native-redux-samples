@@ -5,7 +5,7 @@ import AddTodo from './components/AddTodo';
 import VisibleTodoList from './components/VisibleTodoList';
 import Footer from './components/Footer';
 
-const App = () => {
+const App = ({ store }) => {
   return (
     <View style={styles.container}>
       <AddTodo />
@@ -22,17 +22,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
 });
-
-const getVisibleTodos = function (todos, filter) {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos;
-    case 'SHOW_COMPLETED':
-      return todos.filter(t => t.completed === true);
-    case 'SHOW_ACTIVE':
-      return todos.filter(t => t.completed === false);
-  }
-}
 
 export default App;
 

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import TodoList from './TodoList';
-import store from '../store/configureStore';
 
 class VisibleTodoList extends Component {
   componentDidMount() {
+    const { store } = this.context;
     this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate;
+      this.forceUpdate();
     });
   }
 
@@ -15,6 +15,7 @@ class VisibleTodoList extends Component {
 
   render() {
     const props = this.props;
+    const { store } = this.context;
     const state = store.getState();
 
     return (
@@ -22,7 +23,7 @@ class VisibleTodoList extends Component {
         todos={
           getVisibleTodos(
             state.todos,
-            state.visivilityFilter
+            state.visibilityFilter
           )
         }
         onTodoClick={(id) => (
@@ -33,6 +34,21 @@ class VisibleTodoList extends Component {
         )}
       />
     );
+  }
+}
+
+VisibleTodoList.contextTypes = {
+  store: React.PropTypes.object,
+}
+
+const getVisibleTodos = function (todos, filter) {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed === true);
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => t.completed === false);
   }
 }
 

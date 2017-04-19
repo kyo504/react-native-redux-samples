@@ -7,10 +7,10 @@ export const addTodo = (text) => {
   }
 }
 
-export const completeTodo = (index) => {
+export const completeTodo = (id) => {
   return {
     type: types.COMPLETE_TODO,
-    index,
+    id,
   }  
 }
 

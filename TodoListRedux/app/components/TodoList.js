@@ -23,8 +23,10 @@ const TodoList = ({
       return (
         <Todo
           {...todo}
-          key={todo.index}
-          onClick={() => onTodoClick(todo.index)}
+          key={todo.id}
+          onClick={() => {
+            onTodoClick(todo.id);
+          }}
         />
       )
     })}

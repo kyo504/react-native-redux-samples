@@ -6,9 +6,7 @@ import {
   TextInput,
 } from 'react-native';
 
-const AddTodo = ({
-  onAddTodo
-}) => {
+const AddTodo = (props, { store }) => {
   let todo_text = '';
   let textInputRef = null;
 
@@ -19,7 +17,10 @@ const AddTodo = ({
   const _onAddTodo = () => {
     if (todo_text !== '') {
       clearText();
-      onAddTodo(todo_text);
+      store.dispatch({
+        type: 'ADD_TODO',
+        text: todo_text,
+      })
     }
   }
 
@@ -38,6 +39,10 @@ const AddTodo = ({
       </TouchableHighlight>
     </View>
   )
+}
+
+AddTodo.contextTypes = {
+  store: React.PropTypes.object,
 }
 
 AddTodo.propTypes = {
