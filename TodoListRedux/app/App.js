@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import AddTodo from './components/AddTodo';
-import VisibleTodoList from './components/VisibleTodoList';
+import VisibleTodoList from './components/TodoList';
 import Footer from './components/Footer';
 
-const App = ({ store }) => {
+const App = () => {
   return (
     <View style={styles.container}>
       <AddTodo />

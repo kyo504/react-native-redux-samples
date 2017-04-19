@@ -4,6 +4,8 @@ import {
   View,
   Text,
 } from 'react-native'
+import { connect } from 'react-redux';
+
 import Todo from './Todo'
 
 const TodoList = ({
@@ -12,24 +14,24 @@ const TodoList = ({
 }) => {
 
   let styles = StyleSheet.create({
-    container:{
-      flex:1,
+    container: {
+      flex: 1,
     }
   })
 
   return (
     <View>
-    {todos.map((todo) => {
-      return (
-        <Todo
-          {...todo}
-          key={todo.id}
-          onClick={() => {
-            onTodoClick(todo.id);
-          }}
-        />
-      )
-    })}
+      {todos.map((todo) => {
+        return (
+          <Todo
+            {...todo}
+            key={todo.id}
+            onClick={() => {
+              onTodoClick(todo.id);
+            }}
+          />
+        )
+      })}
     </View>
   )
 }
@@ -44,7 +46,38 @@ TodoList.propTypes = {
 
 TodoList.defaultProps = {
   todos: [],
-  onTodoClick: () => {}
+  onTodoClick: () => { }
 }
 
-export default TodoList;
+const mapStateToProps = (state) => {
+  return {
+    todos: getVisibleTodos(
+      state.todos,
+      state.visibilityFilter
+    )
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTodoClick: (id) => (
+      dispatch({
+        type: 'TOGGLE_TODO',
+        id,
+      })
+    ),
+  };
+};
+
+const getVisibleTodos = function (todos, filter) {
+  switch (filter) {
+    case 'SHOW_ALL':
+      return todos;
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed === true);
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => t.completed === false);
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
