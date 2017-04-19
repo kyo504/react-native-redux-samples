@@ -8,9 +8,7 @@ const Todo = ({
 }) => {
   return (
     <Text 
-      onPress={() => {
-        onClick();
-      }}
+      onPress={() => onClick() }
       style={{textDecorationLine: completed ? 'line-through' : 'none'}}>
       {text}
     </Text>

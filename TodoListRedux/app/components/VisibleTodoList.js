@@ -1,45 +1,70 @@
-import React, { Component } from 'react';
-import TodoList from './TodoList';
+import React, { PropTypes } from 'react'
+import {
+  StyleSheet,
+  View,
+  Text,
+} from 'react-native'
+import { connect } from 'react-redux';
+import Todo from './Todo'
 
-class VisibleTodoList extends Component {
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
+const VisibleTodoList = ({
+  todos,
+  onTodoClick,
+}) => {
 
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
+  let styles = StyleSheet.create({
+    container: {
+      flex: 1,
+    }
+  })
 
-  render() {
-    const props = this.props;
-    const { store } = this.context;
-    const state = store.getState();
-
-    return (
-      <TodoList
-        todos={
-          getVisibleTodos(
-            state.todos,
-            state.visibilityFilter
-          )
-        }
-        onTodoClick={(id) => (
-          store.dispatch({
-            type: 'TOGGLE_TODO',
-            id,
-          })
-        )}
-      />
-    );
-  }
+  return (
+    <View>
+      {todos.map((todo) => {
+        return (
+          <Todo
+            {...todo}
+            key={todo.id}
+            onClick={() => onTodoClick(todo.id) }
+          />
+        )
+      })}
+    </View>
+  )
 }
 
-VisibleTodoList.contextTypes = {
-  store: React.PropTypes.object,
+VisibleTodoList.propTypes = {
+  onTodoClick: PropTypes.func.isRequired,
+  todos: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string.isRequired,
+    completed: PropTypes.bool.isRequired,
+  })),
 }
+
+VisibleTodoList.defaultProps = {
+  todos: [],
+  onTodoClick: () => { }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    todos: getVisibleTodos(
+      state.todos,
+      state.visibilityFilter
+    )
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onTodoClick: (id) => (
+      dispatch({
+        type: 'TOGGLE_TODO',
+        id,
+      })
+    ),
+  };
+};
 
 const getVisibleTodos = function (todos, filter) {
   switch (filter) {
@@ -52,4 +77,4 @@ const getVisibleTodos = function (todos, filter) {
   }
 }
 
-export default VisibleTodoList;
+export default connect(mapStateToProps, mapDispatchToProps)(VisibleTodoList);

@@ -4,68 +4,7 @@ import {
   View,
   Text,
 } from 'react-native';
-
-const Link = ({
-  active,
-  children,
-  onClick
-}) => {
-  let styles = StyleSheet.create({
-    normal: {
-      color: 'purple',
-      textDecorationLine: 'underline',
-    },
-    selected: {
-      color: 'black'
-    }
-  })
-
-  return (
-    <View>
-      <Text
-        onPress={onClick}
-        style={active ? styles.selected : styles.normal}
-      >
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-class FilterLink extends Component {
-  componentDidMount() {
-    const { store } = this.context;
-    this.unsubscribe = store.subscribe(() => {
-      this.forceUpdate();
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  render() {
-    const props = this.props;
-    const { store } = this.context;
-    const state = store.getState();
-
-    return (
-      <Link
-        active={props.filter == state.visibilityFilter}
-        onClick={() => store.dispatch({
-          type: 'SET_VISIBILITY_FILTER',
-          filter: props.filter,
-        })}
-      >
-        {props.children}
-      </Link>
-    )
-  }
-}
-
-FilterLink.contextTypes = {
-  store: React.PropTypes.object,
-}
+import FilterLink from './FilterLink';
 
 const Footer = () => {
   return (

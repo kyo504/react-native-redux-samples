@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 
 import AddTodo from './components/AddTodo';
-import VisibleTodoList from './components/TodoList';
+import VisibleTodoList from './components/VisibleTodoList';
 import Footer from './components/Footer';
 
 const App = () => {
