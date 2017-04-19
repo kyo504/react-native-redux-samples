@@ -62,10 +62,7 @@ class FilterLink extends Component {
   }
 }
 
-const Footer = ({
-  filter,
-  onFilterChange,
-}) => {
+const Footer = () => {
   return (
     <View style={{ flexDirection: 'row' }}>
       <Text>Show: </Text>
