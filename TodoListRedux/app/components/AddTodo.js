@@ -5,19 +5,20 @@ import {
   TouchableHighlight,
   TextInput,
 } from 'react-native';
+import { connect } from 'react-redux';
 
-const AddTodo = (props, { store }) => {
+const AddTodo = ({ dispatch }) => {
   let todo_text = '';
   let textInputRef = null;
 
   const clearText = () => {
-    textInputRef.setNativeProps({text: ''});
+    textInputRef.setNativeProps({ text: '' });
   }
 
   const _onAddTodo = () => {
     if (todo_text !== '') {
       clearText();
-      store.dispatch({
+      dispatch({
         type: 'ADD_TODO',
         text: todo_text,
       })
@@ -25,32 +26,21 @@ const AddTodo = (props, { store }) => {
   }
 
   return (
-    <View style={{flexDirection:'row'}}>
+    <View style={{ flexDirection: 'row' }}>
       <TextInput
         ref={(c) => { textInputRef = c; }}
-        style={{width: 100, borderColor: 'gray', borderWidth: 1}}
+        style={{ width: 100, borderColor: 'gray', borderWidth: 1 }}
         onChangeText={(text) => todo_text = text}
         placeholder='Add a todo'
       />
       <TouchableHighlight underlayColor='transparent' onPress={() => _onAddTodo()}>
-        <View style={{borderWidth:1, borderRadius:3, borderColor:'black'}}>
-          <Text style={{marginHorizontal:5}}>Add</Text>
+        <View style={{ borderWidth: 1, borderRadius: 3, borderColor: 'black' }}>
+          <Text style={{ marginHorizontal: 5 }}>Add</Text>
         </View>
       </TouchableHighlight>
     </View>
   )
 }
 
-AddTodo.contextTypes = {
-  store: React.PropTypes.object,
-}
-
-AddTodo.propTypes = {
-  onAddTodo: PropTypes.func.isRequired,
-};
-
-AddTodo.defaultProps = {
-  onAddTodo: () => {}
-}
-
-export default AddTodo
+// In this case, we don't subcribe to store and just inject dispatch function as prop
+export default connect()(AddTodo);
