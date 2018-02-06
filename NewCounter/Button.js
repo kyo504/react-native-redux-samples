@@ -4,7 +4,12 @@
 import React from 'react';
 import { TouchableHighlight, View, Text } from 'react-native';
 
-export default props => {
+type Props = {
+  onPress: Function,
+  text: string,
+};
+
+export default (props: Props) => {
   const { onPress, text } = props;
   return (
     <TouchableHighlight onPress={onPress}>

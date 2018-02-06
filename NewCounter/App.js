@@ -7,9 +7,17 @@ import {
 } from 'react-native';
 import Counter from './Counter';
 
-export default class App extends Component {
+type Props = {
+  
+}
 
-  constructor(props) {
+type State = {
+  value: number,
+}
+
+export default class App extends Component<Props, State> {
+
+  constructor(props: Props) {
     super(props);
 
     this.state = {

@@ -10,7 +10,17 @@ import {
 } from 'react-native';
 import Button from './Button';
 
-export default class Counter extends Component {
+type Props = {
+  value: number,
+  onIncrement: Function,
+  onDecrement: Function,
+}
+
+type State = {
+
+}
+
+export default class Counter extends Component<Props, State> {
 
   // static propTypes = {
   //   onIncrement: React.PropTypes.func,
@@ -18,7 +28,7 @@ export default class Counter extends Component {
   //   value: React.PropTypes.number,
   // }
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
   }
 
