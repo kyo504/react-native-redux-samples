@@ -1,13 +1,14 @@
 /** 
  * @flow
 */
+import * as types from '../actions/actionTypes'
 
 export type IncrementAction = {
-  type: 'INCREMENT_COUNTER',
+  type: 'INCREMENT',
 };
 
 export type DecrementAction = {
-  type: 'DECREMENT_COUNTER',
+  type: 'DECREMENT',
 };
 
 export type Action = IncrementAction | DecrementAction;

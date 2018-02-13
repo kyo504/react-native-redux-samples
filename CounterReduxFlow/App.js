@@ -5,7 +5,9 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import Counter from './app/Counter';
-import store from './app/store/configureStore';
+import configureStore from './app/store/configureStore';
+
+const store = configureStore();
 
 type Props = {
 

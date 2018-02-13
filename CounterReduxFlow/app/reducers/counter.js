@@ -9,13 +9,9 @@ type State = number;
 export default (state: State = 0, action: Action) => {
   switch (action.type) {
     case types.INCREMENT:
-      return {
-        count: state + 1,
-      };
+      return state + 1;
     case types.DECREMENT:
-      return {
-        count: state - 1,
-      };
+      return state - 1;
     default:
       return state;
   }
