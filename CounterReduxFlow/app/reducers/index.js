@@ -1,20 +1,12 @@
-import * as types from '../actions/actionTypes';
-
-const initialState = {
-  count: 0,
+/**
+ * @flow
+ */
+import { combineReducers } from 'redux';
+import counter from './counter';
+const reducers = {
+  counter,
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case types.INCREMENT:
-      return {
-        count: state.count + 1,
-      };
-    case types.DECREMENT:
-      return {
-        count: state.count - 1,
-      };
-    default:
-      return state;
-  }
-};
+export type Reducers = typeof reducers;
+
+export default combineReducers(reducers);

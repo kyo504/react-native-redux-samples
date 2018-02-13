@@ -1,12 +1,16 @@
+/**
+ * @flow
+ */
 import * as types from './actionTypes'
+import type { Action } from '../types/Action';
 
-export const increment = () => {
+export const increment = (): Action => {
   return {
     type: types.INCREMENT,
   };
 }
 
-export const decrement = () => {
+export const decrement = (): Action => {
   return {
     type: types.DECREMENT,
   };
