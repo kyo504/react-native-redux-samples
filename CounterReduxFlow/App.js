@@ -4,25 +4,18 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import Counter from './app/Counter';
 import configureStore from './app/store/configureStore';
+import type { Store } from './app/types/Store';
+import Counter from './app/Counter';
 
-const store = configureStore();
+const store: Store = configureStore();
 
-type Props = {
-
-}
-
-type State = {
-
-}
-
-export default class App extends Component<Props, State> {
+export default class App extends Component<{}> {
   render() {
     return (
       <Provider store={store}>
         <Counter />
       </Provider>
-    );
+    )
   }
 }

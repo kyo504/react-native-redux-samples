@@ -1,14 +1,20 @@
-/** 
+/**
  * @flow
-*/
-import * as types from '../actions/actionTypes'
+ */
+import * as types from '../actions/actionTypes';
+const ACTION_TYPES = Object.freeze({
+  INCREMENT: 'INCREMENT',
+  DECREMENT: 'DECREMENT',
+});
+
+type ActionType = $Values<typeof ACTION_TYPES>;
 
 export type IncrementAction = {
-  type: 'INCREMENT',
+  type: ActionType,
 };
 
 export type DecrementAction = {
-  type: 'DECREMENT',
+  type: ActionType,
 };
 
 export type Action = IncrementAction | DecrementAction;
