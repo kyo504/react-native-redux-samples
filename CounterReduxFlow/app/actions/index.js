@@ -6,7 +6,7 @@ import type { Action } from '../types/Action';
 
 export const increment = (): Action => {
   return {
-    type: 'HELLO',
+    type: types.INCREMENT,
   };
 }
 

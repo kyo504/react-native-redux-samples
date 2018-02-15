@@ -2,10 +2,9 @@
  * @flow
  */
 import * as types from '../actions/actionTypes';
-const ACTION_TYPES = Object.freeze({
-  INCREMENT: 'INCREMENT',
-  DECREMENT: 'DECREMENT',
-});
+
+// https://github.com/facebook/flow/issues/627#issuecomment-363612711
+const ACTION_TYPES = Object.freeze(types);
 
 type ActionType = $Values<typeof ACTION_TYPES>;
 
